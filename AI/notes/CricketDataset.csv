@@ -1,0 +1,15 @@
+Day,Outlook,Humidity,Wind,Playcricket
+D1,sunny,high,weak,no
+D2,sunny,high,strong,no
+D3,overcast,high,weak,yes
+D4,rain,high,weak,yes
+D5,rain,normal,weak,yes
+D6,rain,normal,strong,no
+D7,overcast,normal,strong,yes
+D8,sunny,high,weak,no
+D9,sunny,normal,weak,yes
+D10,rain,normal,weak,yes
+D11,sunny,normal,strong,yes
+D12,overcast,high,strong,yes
+D13,overcast,normal,weak,yes
+D14,rain,high,strong,no

@@ -1,0 +1,143 @@
+mysql> use cie_prep;
+Database changed
+mysql> CREATE TABLE EMPLOYEE( ename varchar(25), street varchar(25), city varchar(25), primary key(ename) );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE COMPANY( cname varchar(25), city varchar(25), primary key(cname));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE WORKS(ename varchar(25), cname varchar(25), salary int,
+primary key(ename, cname));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE MANAGER(ename varchar(25), mname varchar(25), primary key(ename, mname));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> ALTER TABLE WORKS ADD foreign key(ename) references EMPLOYEE(ename);
+Query OK, 3 rows affected (0.09 sec)
+Records: 3 Duplicates: 0 Warnings: 0
+
+mysql> ALTER TABLE WORKS ADD foreign key(cname) references COMPANY(cname);
+Query OK, 3 rows affected (0.10 sec)
+Records: 3 Duplicates: 0 Warnings: 0
+
+mysql> ALTER TABLE MANAGER ADD foreign key(ename) references EMPLOYEE(ename);
+Query OK, 1 row affected (0.08 sec)
+Records: 1 Duplicates: 0 Warnings: 0
+
+mysql> ALTER TABLE MANAGER ADD foreign key(mname) references EMPLOYEE(ename);
+Query OK, 1 row affected (0.10 sec)
+Records: 1 Duplicates: 0 Warnings: 0
+
+mysql> INSERT INTO EMPLOYEE VALUES( "Yeshwant", "CVRN" , "Bangalore");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES( "Vikram", "Banjara" , "Hyderabad");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES( "Aditi", "Devi Road" , "Secunderabad");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO WORKS VALUES ("Yeshwant", "Intel", 12000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO WORKS VALUES ("Vikram", "Tesla", 20000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO WORKS VALUES ("Aditi", "Tesla", 8000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO COMPANY VALUES("Intel", "Bangalore");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO COMPANY VALUES("Tesla", "Hyderabad");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO MANAGES VALUES("Aditi", "Vikram");
+ERROR 1146 (42S02): Table 'cie_prep.MANAGES' doesn't exist
+mysql> INSERT INTO MANAGEr VALUES("Aditi", "Vikram");
+ERROR 1146 (42S02): Table 'cie_prep.MANAGEr' doesn't exist
+mysql> INSERT INTO MANAGER VALUES("Aditi", "Vikram");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT \* FROM MANAGER;
++-------+--------+
+| ename | mname |
++-------+--------+
+| Aditi | Vikram |
++-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT \* FROM COMPANY;
++-------+-----------+
+| cname | city |
++-------+-----------+
+| Intel | Bangalore |
+| Tesla | Hyderabad |
++-------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT \* FROM WORKS;
++----------+-------+--------+
+| ename | cname | salary |
++----------+-------+--------+
+| Aditi | Tesla | 8000 |
+| Vikram | Tesla | 20000 |
+| Yeshwant | Intel | 12000 |
++----------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT _ FROM EMPLOYEES;
+ERROR 1146 (42S02): Table 'cie_prep.EMPLOYEES' doesn't exist
+mysql> SELECT _ FROM EMPLOYEE;
++----------+-----------+--------------+
+| ename | street | city |
++----------+-----------+--------------+
+| Aditi | Devi Road | Secunderabad |
+| Vikram | Banjara | Hyderabad |
+| Yeshwant | CVRN | Bangalore |
++----------+-----------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT e.ename, e.street, e.city from EMPLOYEE e, WORKS c WHERE e.ename = c.ename and c.cname = "Tesla" and c.salary > 10000;
++--------+---------+-----------+
+| ename | street | city |
++--------+---------+-----------+
+| Vikram | Banjara | Hyderabad |
++--------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT e.ename from EMPLOYEE e, WORKS w, COMPANY c WHERE e.ename = w.ename and w.cname = c.cname and e.city = c.city;
++----------+
+| ename |
++----------+
+| Yeshwant |
+| Vikram |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT e.ename from EMPLOYEE e, MANAGER m, EMPLOYEE f WHERE e.ename = m.ename and m.mname = f.ename and e.city = f.city and e.street = f.street;
++----------+
+| ename |
++----------+
+| Yeshwant |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ename FROM WORKS WHERE NOT cname = 'Tesla';
++----------+
+| ename |
++----------+
+| Deepti |
+| Yeshwant |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> select ename from WORKS WHERE salary > all (SELECT salary from WORKS
+where cname="Intel");
++--------+
+| ename |
++--------+
+| Vikram |
++--------+
+1 row in set (0.00 sec)
