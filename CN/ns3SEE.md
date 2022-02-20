@@ -22,13 +22,16 @@ cp examples/traffic-control/traffic-control.cc scratch/ques1.cc
 ```
     for (auto i = stats.begin(); i != stats.end(); i++)
     {
-        cout << "Lost Packets: " << i->second.lostPackets << "\n";
+        std::cout << "tx packets: " <<i->second.txPackets << "\n";
+        std::cout << "Lost Packets: " << i->second.lostPackets << "\n";
     }
 ```
 
 11. To run ./waf --run scratch/filenameWithoutExtention
 
-## Ques 3:
+## 2. Simulate a four node point-to-point network, and connect the links as follows: n0-n2, n1-n2 and n2-n3. Apply TCP agent between n0-n3 and UDP agent between n1-n3. Apply relevant applications over TCP and UDP agents by changing the parameters and determine the number of packets sent by TCP/UDP
+
+## 3. Simulate simple Extended Service Set with transmitting nodes in wireless LAN and determine the performance with respect to transmission of packets.
 
 cp examples/tutorial/third.cc scratch/ques3.c
 
