@@ -1,4 +1,4 @@
 # NS3
 
-    NS3 notes - [link](./ns3.md)
-    NS3 steps - [link](./ns3SEE.md)
+   - NS3 notes - [here](./ns3.md)
+   - NS3 steps - [here](./ns3SEE.md)
