@@ -161,13 +161,13 @@ int main(int argc, char *argv[])
   Simulator::Run();
 
   monitor->CheckForLostPackets();
-  Ptr<Ipv4FlowClassifier> classifier = DynamicCast<Ipv4FlowClassifier>(flowmon.GetClassifier());
-  std::map<FlowId, FlowMonitor::FlowStats> stats = monitor->GetFlowStats();
+  auto classifier = DynamicCast<Ipv4FlowClassifier>(flowmon.GetClassifier());
+  auto stats = monitor->GetFlowStats();
   for (auto iter = stats.begin(); iter != stats.end(); ++iter)
   {
-    Ipv4FlowClassifier::FiveTuple t = classifier->FindFlow(iter->first);
-    NS_LOG_UNCOND("Flow ID: " << iter->first << " Src Addr " << t.sourceAddress << " Dst Addr " << t.destinationAddress);
-    NS_LOG_UNCOND("Tx Packets = " << iter->second.txPackets);
+    auto t = classifier->FindFlow(iter->first);
+    std::cout << "Flow ID: " << iter->first << " Src Addr " << t.sourceAddress << " Dst Addr " << t.destinationAddress;
+    std::cout << "Tx Packets = " << iter->second.txPackets);
     std::cout << "Rx Packets = " << iter->second.rxPackets << std::endl;
     std::cout << "Lost Packets = " << iter->second.lostPackets << std::endl;
     std::cout << "Throughput = " << iter->second.rxBytes * 8.0 / (iter->second.timeLastRxPacket.GetSeconds() - iter->second.timeFirstTxPacket.GetSeconds()) / 1000000 << " Kbps" << std::endl;

@@ -19,7 +19,7 @@ cp examples/traffic-control/traffic-control.cc scratch/ques1.cc
 9. Remove everything below Simulator destroy
 10. Remove unnecessary cout statements and add
 
-```
+```cpp
     for (auto i = stats.begin(); i != stats.end(); i++)
     {
         std::cout << "tx packets: " <<i->second.txPackets << "\n";
@@ -30,6 +30,9 @@ cp examples/traffic-control/traffic-control.cc scratch/ques1.cc
 11. To run ./waf --run scratch/filenameWithoutExtention
 
 ## 2. Simulate a four node point-to-point network, and connect the links as follows: n0-n2, n1-n2 and n2-n3. Apply TCP agent between n0-n3 and UDP agent between n1-n3. Apply relevant applications over TCP and UDP agents by changing the parameters and determine the number of packets sent by TCP/UDP
+
+cp examples/traffic-control/traffic-control.cc scratch/ques2
++.cc
 
 ## 3. Simulate simple Extended Service Set with transmitting nodes in wireless LAN and determine the performance with respect to transmission of packets.
 
@@ -46,22 +49,23 @@ cp examples/tutorial/third.cc scratch/ques3.c
 8. Remove if tracing part
 9. add output stuff:
 
-```
+```cpp
   FlowMonitorHelper flowmon;
   Ptr<FlowMonitor> monitor = flowmon.InstallAll();
+
   Simulator::Run();
 
   monitor->CheckForLostPackets();
-  Ptr<Ipv4FlowClassifier> classifier = DynamicCast<Ipv4FlowClassifier>(flowmon.GetClassifier());
-  std::map<FlowId, FlowMonitor::FlowStats> stats = monitor->GetFlowStats();
+  auto classifier = DynamicCast<Ipv4FlowClassifier>(flowmon.GetClassifier());
+  auto stats = monitor->GetFlowStats();
   for (auto iter = stats.begin(); iter != stats.end(); ++iter)
   {
-    Ipv4FlowClassifier::FiveTuple t = classifier->FindFlow(iter->first);
-    NS_LOG_UNCOND("Flow ID: " << iter->first << " Src Addr " << t.sourceAddress << " Dst Addr " << t.destinationAddress);
-    NS_LOG_UNCOND("Tx Packets = " << iter->second.txPackets);
+    auto t = classifier->FindFlow(iter->first);
+    std::cout << "Flow ID: " << iter->first << " Src Addr " << t.sourceAddress << " Dst Addr " << t.destinationAddress;
+    std::cout << "Tx Packets = " << iter->second.txPackets);
     std::cout << "Rx Packets = " << iter->second.rxPackets << std::endl;
     std::cout << "Lost Packets = " << iter->second.lostPackets << std::endl;
     std::cout << "Throughput = " << iter->second.rxBytes * 8.0 / (iter->second.timeLastRxPacket.GetSeconds() - iter->second.timeFirstTxPacket.GetSeconds()) / 1000000 << " Kbps" << std::endl;
   }
- }
+
 ```
