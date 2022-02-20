@@ -3,8 +3,7 @@
 #define N strlen(g)
 char t[28], cs[28], g[] = "10001000000100001";
 int a, e, c;
-void xor ()
-{
+void xor () {
     for (c = 1; c < N; c++)
         cs[c] = ((cs[c] == g[c]) ? '0' : '1');
 }
