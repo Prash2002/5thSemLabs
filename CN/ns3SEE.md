@@ -31,8 +31,39 @@ cp examples/traffic-control/traffic-control.cc scratch/ques1.cc
 
 ## 2. Simulate a four node point-to-point network, and connect the links as follows: n0-n2, n1-n2 and n2-n3. Apply TCP agent between n0-n3 and UDP agent between n1-n3. Apply relevant applications over TCP and UDP agents by changing the parameters and determine the number of packets sent by TCP/UDP
 
-cp examples/traffic-control/traffic-control.cc scratch/ques2
-+.cc
+cp examples/traffic-control/traffic-control.cc scratch/ques2.cc
+
+1. remove functions
+2. transportProt = "udp" and socketType = "ns3::UdpSocketFactory";
+3. remove command line and if-else statements
+4. create 4 nodes and remove p2p setQueue
+5. create 3 devices for (0,2), (1,2), (2,3)
+6. Remove traffic control till ipv4 address
+7. create 3 interfaces
+   - ("10.1.1.0", "255.255.255.0")
+   - ("10.1.2.0", "255.255.255.0")
+   - ("10.1.3.0", "255.255.255.0")
+8. Add routing table Ipv4GlobalRoutingHelper::PopulateRoutingTables(); -- take from examples/tutorial/third.cc
+9. set sink node to 3, and remoteAdd to interfaces3.GetAddress(1) and remove 0xb thing, in onoff thing get node 0 --- UDP FLOW
+
+10. copy the flow part again, change all variable names by adding "\_tcp"
+
+11. in tcp flow, update port to 9, add socketType = "ns3::TcpSocketFactory";
+
+12. onoff_tcp update to nodes.Get(1) and start(seconds(1.5))
+
+13. remove unnecessary cout statements and statements below simulation destroy
+
+14. for loop:
+
+```cpp
+    for (auto i = stats.begin(); i != stats.end(); i++)
+    {
+        auto t = classifier->FindFlow(i->first);
+        std::cout << "Flow ID: " << i->first << " Src Addr " << t.sourceAddress << " Dst Addr " << t.destinationAddress << "\n";
+        std::cout << "Tx Packets = " << i->second.txPackets << "\n";
+    }
+```
 
 ## 3. Simulate simple Extended Service Set with transmitting nodes in wireless LAN and determine the performance with respect to transmission of packets.
 
