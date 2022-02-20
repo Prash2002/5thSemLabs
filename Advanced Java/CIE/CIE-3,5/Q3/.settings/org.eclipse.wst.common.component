@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="Q3">
+        
+    <wb-module deploy-name="CIE-3,4,5,6">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="Q3"/>
-        <property name="java-output-path" value="/Q3/build/classes"/>
+                
+        <property name="java-output-path" value="/CIE-3,4,5,6/build/classes"/>
+        <property name="context-root" value="CIE-3,4,5,6"/>
+            
     </wb-module>
+    
 </project-modules>

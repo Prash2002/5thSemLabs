@@ -131,6 +131,8 @@ db.movie.insert([{act_n:"john",act_id:11,act_bdate:"1/2/1998",dir_n:"ram",dir_id
 //List all the movies acted by John in the year 2018.
 db.movie.find({$and: [{act_n:"john"},{year:2018}]},{film:1}).pretty()
 
+-- db.movie.find({act_n: "john", year: 2018}, {film:1}).pretty()
+
 //List only the actors names and type of the movie directed by Ram.
 db.movie.find({dir_n:"ram"},{act_n:1,type:1}).pretty()
 
@@ -138,6 +140,7 @@ db.movie.find({dir_n:"ram"},{act_n:1,type:1}).pretty()
 //List all the movies acted by John and Elly in the year 2012.
 db.movie.find({$and : [{act_n:{$in : ["john","elly"]}},{year:2012}]},{film:1}).pretty()
 
+-- db.movie.find({$or : [{act_n: "john"}, {act_n: "elly"}], year: 2012},{film:1}).pretty()
 
 //ii. List only the name and type of the movie where Ram has acted sorted by movie names.
 db.movie.find({act_n:"ram"},{film:1,type:1}).sort({film:1}).pretty()
@@ -146,6 +149,7 @@ db.movie.find({act_n:"ram"},{film:1,type:1}).sort({film:1}).pretty()
 //List all the movies acted by John in the year 2018.
 db.movie.find({$and : [{act_n:"john"},{year:2018}]},{film:1}).pretty()
 
+-- db.movie.find({act_n:"john", year: 2018}, {film:1}).pretty()
 
 //List only the actors names and type of the movie directed by Ram.
 db.movie.find({dir_n:"ram"},{act_n:1,type:1}).pretty()

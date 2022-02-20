@@ -3,6 +3,8 @@
 	<name>Servers</name>
 	<comment></comment>
 	<projects>
+		<project>CIE-3,4,5,6</project>
+		<project>CIE-3,5</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>
